@@ -5,7 +5,7 @@ def find_gamepad_device():
     for device_path in evdev.list_devices():
         device = evdev.InputDevice(device_path)
         # Match the device name exactly or partially
-        if "Xbox Wireless Controller" in device.name:
+        if "Xbox" in device.name:
             print(f"Found gamepad: {device.path} - {device.name}")
             return device
     raise Exception("No Xbox Wireless Controller found")
