@@ -1,9 +1,13 @@
 import evdev, asyncio
 from evdev import InputDevice, categorize, ecodes
 
-gamepad = InputDevice('/dev/input/event6')
-
-print(gamepad)
+def find_gamepad_device():
+    for device_path in evdev.list_devices():
+        device = evdev.InputDevice(device_path)
+        if 'event' in device.path and 'gamepad' in device.name.lower():
+            print(f"Found gamepad: {device.path} - {device.name}")
+            return device
+    raise Exception("No gamepad found")
 
 async def left_joystick(gamepad):
     async for event in gamepad.async_read_loop():
