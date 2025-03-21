@@ -4,10 +4,11 @@ from evdev import InputDevice, categorize, ecodes
 def find_gamepad_device():
     for device_path in evdev.list_devices():
         device = evdev.InputDevice(device_path)
-        if 'event' in device.path and 'xbox wireless controller' in device.name.lower():
+        # Match the device name exactly or partially
+        if "Xbox Wireless Controller" in device.name:
             print(f"Found gamepad: {device.path} - {device.name}")
             return device
-    raise Exception("No gamepad found")
+    raise Exception("No Xbox Wireless Controller found")
 
 async def left_joystick(gamepad):
     async for event in gamepad.async_read_loop():
