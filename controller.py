@@ -29,6 +29,5 @@ async def right_joystick(gamepad):
 async def main():
     gamepad = find_gamepad_device()
     
-    await asyncio.gather(left_joystick(gamepad))
-    await asyncio.gather(right_joystick(gamepad))
+    asyncio.gather(left_joystick(gamepad), right_joystick(gamepad))
 asyncio.run(main())
