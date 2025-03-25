@@ -11,7 +11,7 @@ def find_gamepad_device():
     raise Exception("No Xbox Wireless Controller found")
     
 async def analog_inputs(gamepad):
-    joysticks(gamepad)
+    await joysticks(gamepad)
 
 async def joysticks(gamepad):
     async for event in gamepad.async_read_loop():
