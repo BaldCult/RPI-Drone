@@ -1,4 +1,4 @@
-import evdev, asyncio
+import evdev, asyncio, os
 from evdev import InputDevice, categorize, ecodes
 
 def find_gamepad_device():
@@ -9,14 +9,22 @@ def find_gamepad_device():
             print(f"Found gamepad: {device.path} - {device.name}")
             return device
     raise Exception("No Xbox Wireless Controller found")
+    
+async def analog_inputs(gamepad):
+    joysticks(gamepad)
 
-async def left_joystick(gamepad):
+async def joysticks(gamepad):
     async for event in gamepad.async_read_loop():
         if event.type == ecodes.EV_ABS:
             if event.code == ecodes.ABS_X:
                 print(f"Left Joystick X: {event.value}")
             elif event.code == ecodes.ABS_Y:
                 print(f"Left Joystick Y: {event.value}")
+            elif event.code == ecodes.ABS_Z:
+                print(f"Right Joystick X: {event.value}")
+            elif event.code == ecodes.ABS_RZ:
+                print(f"Right Joystick Y: {event.value}")
+            os.system(clear)
 
 async def right_joystick(gamepad):
     async for event in gamepad.async_read_loop():
@@ -29,5 +37,5 @@ async def right_joystick(gamepad):
 async def main():
     gamepad = find_gamepad_device()
     
-    await asyncio.gather(right_joystick(gamepad), left_joystick(gamepad))
+    analog_inputs(gamepad)
 asyncio.run(main())
