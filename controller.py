@@ -16,7 +16,7 @@ async def analog_inputs(gamepad):
 async def joysticks(gamepad):
     async for event in gamepad.async_read_loop():
         if event.type == ecodes.EV_ABS:
-            os.system(clear)
+            os.system("clear")
             if event.code == ecodes.ABS_X:
                 print(f"Left Joystick X: {event.value}")
             elif event.code == ecodes.ABS_Y:
