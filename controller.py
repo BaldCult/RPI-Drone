@@ -2,6 +2,8 @@ import evdev, asyncio, os, time
 from evdev import InputDevice, categorize, ecodes
 from RpiMotorLib import RpiMotorLib
 
+mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
+
 def find_gamepad_device():
     for device_path in evdev.list_devices():
         device = evdev.InputDevice(device_path)
