@@ -44,6 +44,8 @@ async def joysticks(gamepad):
 
         asyncio.sleep(0.25)
 
+        os.system("clear")
+
 #async def right_joystick(gamepad):
 #    async for event in gamepad.async_read_loop():
  #       if event.type == ecodes.EV_ABS:
