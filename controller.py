@@ -22,16 +22,16 @@ async def joysticks(gamepad):
     right_X = 0
     right_Y = 0
     
-    async for event in gamepad.async_read_loop():
+    async for event in gamepad.async_read_loop():  
         if event.type == ecodes.EV_ABS:
             if event.code == ecodes.ABS_X:
-                left_X = normalize(event.value)
+                left_X = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_Y:
-                left_Y = normalize(event.value)
+                left_Y = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_Z:
-                right_X = normalize(event.value)
+                right_X = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_RZ:
-                right_Y = normalize(event.value)
+                right_Y = round(normalize(event.value), 2)
 
         print(f"Left Joystick X: {left_X}") #event.code == ecodes.ABS_X
         print(f"Left Joystick Y: {left_Y}") #event.code == ecodes.ABS_Y
