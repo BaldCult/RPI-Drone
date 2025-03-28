@@ -2,8 +2,6 @@ import evdev, asyncio, os, time
 from evdev import InputDevice, categorize, ecodes
 from RpiMotorLib import RpiMotorLib
 
-    GpioPins = [4, 17, 27, 22]
-
 def find_gamepad_device():
     for device_path in evdev.list_devices():
         device = evdev.InputDevice(device_path)
@@ -52,6 +50,7 @@ async def joysticks(gamepad):
      #           print(f"Right Joystick Y: {event.value}")
 
 async def main():
+    GpioPins = [4, 17, 27, 22]
     gamepad = find_gamepad_device()
     
     await analog_inputs(gamepad)
