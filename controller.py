@@ -18,7 +18,10 @@ def normalize(value):
 
 async def joysticks(gamepad):
     async for event in gamepad.async_read_loop():
-        left_X = 0, left_Y = 0, right_X = 0, right_Y = 0
+        left_X = 0
+        left_Y = 0
+        right_X = 0
+        right_Y = 0
         
         if event.type == ecodes.EV_ABS:
             if event.code == ecodes.ABS_X:
