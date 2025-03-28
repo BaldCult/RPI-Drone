@@ -26,6 +26,7 @@ async def joysticks(gamepad):
     right_Y = 0
     
     async for event in gamepad.async_read_loop():  
+        mymotortest.motor_run(GpioPins,.05,left_Y, True, True,"full", .05)
         if event.type == ecodes.EV_ABS:
             if event.code == ecodes.ABS_X:
                 left_X = round(normalize(event.value), 2)
