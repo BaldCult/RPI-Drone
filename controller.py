@@ -1,5 +1,8 @@
-import evdev, asyncio, os
+import evdev, asyncio, os, time
 from evdev import InputDevice, categorize, ecodes
+from RpiMotorLib import RpiMotorLib
+
+    GpioPins = [4, 17, 27, 22]
 
 def find_gamepad_device():
     for device_path in evdev.list_devices():
