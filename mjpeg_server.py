@@ -4,6 +4,7 @@
 # Run this script, then point a web browser at http:<this-ip-address>:8000
 # Note: needs simplejpeg to be installed (pip3 install simplejpeg).
 
+import json
 import io
 import logging
 import socketserver
@@ -15,6 +16,8 @@ from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
+start_controller()
+
 PAGE = """\
 <html>
 <head>
@@ -23,7 +26,24 @@ PAGE = """\
 <body>
 <h1>RPI-Drone FPV</h1>
 <img src="stream.mjpg" width="640" height="480" />
-<p>XBox Controller</p>
+<p>XBox Controller Input</p>
+<p>Left Stick - X: <span id="lx">0</span>, Y: <span id="ly">0</span></p>
+<p>Right Stick - X: <span id="rx">0</span>, Y: <span id="ry">0</span></p>
+
+<script>
+function updateJoystick() {
+    fetch('/joystick')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('lx').textContent = data.left_X;
+            document.getElementById('ly').textContent = data.left_Y;
+            document.getElementById('rx').textContent = data.right_X;
+            document.getElementById('ry').textContent = data.right_Y;
+        });
+}
+
+setInterval(updateJoystick, 100);
+</script>
 </body>
 </html>
 """
@@ -60,6 +80,11 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Pragma', 'no-cache')
             self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
             self.end_headers()
+        elif self.path == '/joystick':
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(controller.joystick_values).encode('utf-8'))
             try:
                 while True:
                     with output.condition:
