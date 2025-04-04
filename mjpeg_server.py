@@ -7,6 +7,7 @@
 import io
 import logging
 import socketserver
+import controller.py
 from http import server
 from threading import Condition
 
@@ -17,11 +18,12 @@ from picamera2.outputs import FileOutput
 PAGE = """\
 <html>
 <head>
-<title>picamera2 MJPEG streaming demo</title>
+<title>RPI-Drone FPV</title>
 </head>
 <body>
-<h1>Picamera2 MJPEG Streaming Demo</h1>
+<h1>RPI-Drone FPV</h1>
 <img src="stream.mjpg" width="640" height="480" />
+<p>XBox Controller</p>
 </body>
 </html>
 """
