@@ -7,10 +7,10 @@
 import io
 import logging
 import socketserver
-import controller.py
 from http import server
 from threading import Condition
 
+from controller import joystick_values, start_controller
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
