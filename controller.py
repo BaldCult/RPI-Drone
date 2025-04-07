@@ -1,9 +1,8 @@
 import evdev, asyncio, os, time
 from evdev import InputDevice, categorize, ecodes
 from RpiMotorLib import RpiMotorLib
-from threading import Thread
 
-joystick_values = {"left_X": 0.0, "left_Y": 0.0, "right_X": 0.0, "right_Y": 0.0}
+mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
 
 def find_gamepad_device():
     for device_path in evdev.list_devices():
@@ -27,6 +26,7 @@ async def joysticks(gamepad):
     right_Y = 0
     
     async for event in gamepad.async_read_loop():  
+        GpioPins = [4, 17, 27, 22]
         if event.type == ecodes.EV_ABS:
             if event.code == ecodes.ABS_X:
                 left_X = round(normalize(event.value), 2)
@@ -37,10 +37,15 @@ async def joysticks(gamepad):
             elif event.code == ecodes.ABS_RZ:
                 right_Y = round(normalize(event.value), 2)
 
-def start_controller():
-    def runner():
-        gamepad = find_gamepad_device()
-        asyncio.run(joysticks(gamepad))
+        print(f"Left Joystick X: {left_X}") #event.code == ecodes.ABS_X
+        print(f"Left Joystick Y: {left_Y}") #event.code == ecodes.ABS_Y
+        print(f"Right Joystick X: {right_X}") #event.code == ecodes.ABS_Z
+        print(f"Right Joystick Y: {right_Y}") #event.code == ecodes.ABS_RZ
 
-    t = Thread(target=runner, daemon=True)
-    t.start()
+        asyncio.sleep(0.25)
+
+async def main():
+    gamepad = find_gamepad_device()
+    
+    await analog_inputs(gamepad)
+asyncio.run(main())
