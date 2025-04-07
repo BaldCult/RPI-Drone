@@ -66,6 +66,11 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header('Location', '/index.html')
             self.end_headers()
+        elif self.path == '/joystick':
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(joystick_values).encode('utf-8'))
         elif self.path == '/index.html':
             content = PAGE.encode('utf-8')
             self.send_response(200)
@@ -80,11 +85,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Pragma', 'no-cache')
             self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
             self.end_headers()
-        elif self.path == '/joystick':
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(joystick_values).encode('utf-8'))
             try:
                 while True:
                     with output.condition:
