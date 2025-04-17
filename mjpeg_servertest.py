@@ -4,6 +4,7 @@ import io
 import logging
 import socketserver
 import asyncio
+import json
 from http import server
 from threading import Condition, Thread
 
@@ -11,20 +12,43 @@ from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
-import gamepad_test  # Import the joystick values
+import gamepad_test  # Imports joystick values
 
 PAGE = """\
 <html>
 <head>
 <title>Picamera2 MJPEG Streaming + Joystick</title>
-<meta http-equiv="refresh" content="1">
+<style>
+body {{ font-family: Arial, sans-serif; }}
+#joystick-box {{ margin-top: 20px; }}
+</style>
 </head>
 <body>
 <h1>Camera Feed + Joystick Readout</h1>
 <img src="stream.mjpg" width="640" height="480" /><br><br>
+
+<div id="joystick-box">
 <h2>Joystick Values:</h2>
-<p>Left Stick: X = {left_X}, Y = {left_Y}</p>
-<p>Right Stick: X = {right_X}, Y = {right_Y}</p>
+<p>Left Stick: X = <span id="lx">0</span>, Y = <span id="ly">0</span></p>
+<p>Right Stick: X = <span id="rx">0</span>, Y = <span id="ry">0</span></p>
+</div>
+
+<script>
+function fetchJoystick() {{
+    fetch('/joystick.json')
+        .then(response => response.json())
+        .then(data => {{
+            document.getElementById('lx').textContent = data.left_X;
+            document.getElementById('ly').textContent = data.left_Y;
+            document.getElementById('rx').textContent = data.right_X;
+            document.getElementById('ry').textContent = data.right_Y;
+        }})
+        .catch(err => console.error("Joystick fetch error:", err));
+}}
+
+setInterval(fetchJoystick, 200);  // Update every 200ms
+</script>
+
 </body>
 </html>
 """
@@ -46,18 +70,18 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
-            # Inject current joystick values into the page
-            content = PAGE.format(
-                left_X=gamepad_test.latest_values["left_X"],
-                left_Y=gamepad_test.latest_values["left_Y"],
-                right_X=gamepad_test.latest_values["right_X"],
-                right_Y=gamepad_test.latest_values["right_Y"]
-            ).encode('utf-8')
+            content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
+        elif self.path == '/joystick.json':
+            # Return the latest joystick values as JSON
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(gamepad_test.latest_values).encode('utf-8'))
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
@@ -104,7 +128,7 @@ picam2.start_recording(JpegEncoder(), FileOutput(output))
 try:
     address = ('', 8000)
     server = StreamingServer(address, StreamingHandler)
-    print("Server running at http://<pi-ip>:8000")
+    print("Server running at http://<your-pi-ip>:8000")
     server.serve_forever()
 finally:
     picam2.stop_recording()
