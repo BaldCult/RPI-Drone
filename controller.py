@@ -42,7 +42,7 @@ async def joysticks(gamepad):
         #print(f"Right Joystick X: {right_X}") #event.code == ecodes.ABS_Z
         #print(f"Right Joystick Y: {right_Y}") #event.code == ecodes.ABS_RZ
 
-        asyncio.sleep(0.25)
+        #asyncio.sleep(0.25)
 
 async def main():
     gamepad = find_gamepad_device()
