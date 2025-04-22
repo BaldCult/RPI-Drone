@@ -12,6 +12,7 @@ from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
+import telemetry
 import gamepad_test  # Imports joystick values
 
 PAGE = """\
