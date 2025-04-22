@@ -46,7 +46,7 @@ function fetchJoystick() {{
         .catch(err => console.error("Joystick fetch error:", err));
 }}
 
-setInterval(fetchJoystick, 200);  // Update every 200ms
+setInterval(fetchJoystick, 10);  // Update every 200ms
 </script>
 
 </body>
