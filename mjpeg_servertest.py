@@ -141,7 +141,7 @@ def start_telemetry_reader():
     asyncio.run(telemetry.read_gyro_data())
 
 joystick_thread = Thread(target=start_joystick_reader, daemon=True)
-telemetry_thread = Thread(target=start_gyro_reader, daemon=True)
+telemetry_thread = Thread(target=start_telemetry_reader, daemon=True)
 telemetry_thread.start()
 joystick_thread.start()
 
