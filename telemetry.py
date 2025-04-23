@@ -21,7 +21,7 @@ latest_values = {
 }
 
 async def read_gyro_data():
-   async for event in async_read_loop():
+   while True:
         accTuple = (mpu.acceleration[0], mpu.acceleration[1], ((float)(mpu.acceleration[2]))+2.0)
         sensor_data = {
            "acceleration": {"x": accTuple[0], "y": accTuple[1], "z": accTuple[2]},
