@@ -28,5 +28,5 @@ async def get_gyro_data():
            "gyro": {"x": mpu.gyro[0], "y": mpu.gyro[1], "z": mpu.gyro[2]},
            "temperature": mpu.temperature
         }
-     latest_values["temperature"]=mpu.temperature
+        latest_values["temperature"] = mpu.temperature
         time.sleep(1)
