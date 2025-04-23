@@ -20,7 +20,7 @@ latest_values = {
     "temperature": 0
 }
 
-async def get_gyro_data():
+async def read_gyro_data():
     while True:
         accTuple = (mpu.acceleration[0], mpu.acceleration[1], ((float)(mpu.acceleration[2]))+2.0)
         sensor_data = {
