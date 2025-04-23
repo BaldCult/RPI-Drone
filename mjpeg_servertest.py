@@ -137,8 +137,12 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 # Start joystick reader in its own thread
 def start_joystick_reader():
     asyncio.run(gamepad_test.read_joystick_values())
+def start_telemetry_reader():
+    asyncio.run(telemetry.read_gyro_data())
 
 joystick_thread = Thread(target=start_joystick_reader, daemon=True)
+telemetry_thread = Thread(target=start_gyro_reader, daemon=True)
+telemetry_thread.start()
 joystick_thread.start()
 
 # Start camera stream
