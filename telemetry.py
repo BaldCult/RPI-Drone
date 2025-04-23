@@ -17,10 +17,10 @@ mpu = adafruit_mpu6050.MPU6050(i2c)
     #time.sleep(1)
 
 async def get_gyro_data():
-    while true
-         accTuple = (mpu.acceleration[0], mpu.acceleration[1], ((float)(mpu.acceleration[2]))+2.0)
-         sensor_data = {
-            "acceleration": {"x": accTuple[0], "y": accTuple[1], "z": accTuple[2]},
-            "gyro": {"x": mpu.gyro[0], "y": mpu.gyro[1], "z": mpu.gyro[2]},
-            "temperature": mpu.temperature
+    while True:
+        accTuple = (mpu.acceleration[0], mpu.acceleration[1], ((float)(mpu.acceleration[2]))+2.0)
+        sensor_data = {
+           "acceleration": {"x": accTuple[0], "y": accTuple[1], "z": accTuple[2]},
+           "gyro": {"x": mpu.gyro[0], "y": mpu.gyro[1], "z": mpu.gyro[2]},
+           "temperature": mpu.temperature
         }
