@@ -36,7 +36,7 @@ body {{ font-family: Arial, sans-serif; }}
 
 <div id="telemetry-box">
 <h2>Telemetry Values:</h2>
-<p>Acceleration: X = <span id="ax">0</span>, Y = <span id="ay">0</span>, Z = <span id="az">0</span></p>
+<p>Temperature: X = <span id="temp">0</span></p>
 </div>
 
 <script>
@@ -56,9 +56,7 @@ function fetchTelemetry() {{
     fetch('/telemetry.json')
         .then(response => response.json())
         .then(data => {{
-            document.getElementById('ax').textContent = data.acceleration.x;
-            document.getElementById('ay').textContent = data.acceleration.y;
-            document.getElementById('az').textContent = data.acceleration.z;
+            document.getElementById('temp').textContent = data.temperature;
         }})
         .catch(err => console.error("Telemetry fetch error:", err));
 }}
@@ -105,7 +103,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps(telemetry.sensor_data).encode('utf-8'))
+            self.wfile.write(json.dumps(telemetry.latest_values).encode('utf-8'))
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
