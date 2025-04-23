@@ -100,6 +100,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(gamepad_test.latest_values).encode('utf-8'))
+        elif self.path == '/telemetry.json':
+            # Return the latest telemetry values as JSON
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(telemetry.sensor_data).encode('utf-8'))
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
