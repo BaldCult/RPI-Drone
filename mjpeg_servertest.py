@@ -18,7 +18,7 @@ import gamepad_test  # Imports joystick values
 PAGE = """\
 <html>
 <head>
-<title>Picamera2 MJPEG Streaming + Joystick</title>
+<title>RPI-Drone</title>
 <style>
 body {{ font-family: Arial, sans-serif; }}
 #joystick-box {{ margin-top: 20px; }}
@@ -34,6 +34,11 @@ body {{ font-family: Arial, sans-serif; }}
 <p>Right Stick: X = <span id="rx">0</span>, Y = <span id="ry">0</span></p>
 </div>
 
+<div id="telemetry-box">
+<h2>Telemetry Values:</h2>
+<p>Acceleration: X = <span id="ax">0</span>, Y = <span id="ay">0</span>, Z = <span id="az">0</span></p>
+</div>
+
 <script>
 function fetchJoystick() {{
     fetch('/joystick.json')
@@ -47,7 +52,19 @@ function fetchJoystick() {{
         .catch(err => console.error("Joystick fetch error:", err));
 }}
 
-setInterval(fetchJoystick, 10);  // Update every 200ms
+function fetchTelemetry() {{
+    fetch('/telemetry.json')
+        .then(response => response.json())
+        .then(data => {{
+            document.getElementById('ax').textContent = data.acceleration.x;
+            document.getElementById('ay').textContent = data.acceleration.y;
+            document.getElementById('az').textContent = data.acceleration.z;
+        }})
+        .catch(err => console.error("Telemetry fetch error:", err));
+}}
+
+setInterval(fetchJoystick, 10);
+setInterval(fetchTelemetry, 10);
 </script>
 
 </body>
