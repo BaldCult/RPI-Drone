@@ -25,7 +25,7 @@ body {{ font-family: Arial, sans-serif; }}
 </style>
 </head>
 <body>
-<h1>Camera Feed + Joystick Readout</h1>
+<h1>RPI-Drone</h1>
 <img src="stream.mjpg" width="640" height="480" /><br><br>
 
 <div id="joystick-box">
@@ -37,6 +37,7 @@ body {{ font-family: Arial, sans-serif; }}
 <div id="telemetry-box">
 <h2>Telemetry Values:</h2>
 <p>Acceleration: X = <span id="ax">0</span>, Y = <span id="ay">0</span>, Z = <span id="az">0</span></p>
+<p>Gyro: X = <span id="gx">0</span>, Y = <span id="gy">0</span>, Z = <span id="gz">0</span></p>
 <p>Temperature: <span id="temp">0</span></p>
 </div>
 
@@ -60,6 +61,9 @@ function fetchTelemetry() {{
             document.getElementById('ax').textContent = data.acceleration.x;
             document.getElementById('ay').textContent = data.acceleration.y;
             document.getElementById('az').textContent = data.acceleration.z;
+            document.getElementById('gx').textContent = data.gyro.x;
+            document.getElementById('gy').textContent = data.gyro.y;
+            document.getElementById('gz').textContent = data.gyro.z;
             document.getElementById('temp').textContent = data.temperature;
         }})
         .catch(err => console.error("Telemetry fetch error:", err));
