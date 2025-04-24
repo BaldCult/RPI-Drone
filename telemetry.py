@@ -28,4 +28,5 @@ async def read_gyro_data():
         latest_values["acceleration"] = {"x": accTuple[0], "y": accTuple[1], "z": accTuple[2]}
         latest_values["gyro"] = {"x": mpu.gyro[0], "y": mpu.gyro[1], "z": mpu.gyro[2]}
         latest_values["temperature"] = mpu.temperature
+        print("Updated latest_values:", latest_values)
         time.sleep(1)
