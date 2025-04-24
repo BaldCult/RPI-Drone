@@ -25,6 +25,14 @@ latest_values = {
 async def read_gyro_data():
    while True:
         accTuple = (mpu.acceleration[0], mpu.acceleration[1], ((float)(mpu.acceleration[2]))+2.0)
+        # Round the values to 2 decimal places
+        accTuple = (round(accTuple[0], 2), round(accTuple[1], 2), round(accTuple[2], 2))
+        
+        # Round the gyro values to 2 decimal places
+        gyro = (round(mpu.gyro[0], 2), round(mpu.gyro[1], 2), round(mpu.gyro[2], 2))
+
+        # Round the temperature value to 2 decimal places
+        temperature = round(mpu.temperature, 2)
         latest_values["acceleration"] = {"x": accTuple[0], "y": accTuple[1], "z": accTuple[2]}
         latest_values["gyro"] = {"x": mpu.gyro[0], "y": mpu.gyro[1], "z": mpu.gyro[2]}
         latest_values["temperature"] = mpu.temperature
