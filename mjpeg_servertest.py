@@ -57,9 +57,9 @@ function fetchTelemetry() {{
     fetch('/telemetry.json')
         .then(response => response.json())
         .then(data => {{
-            document.getElementById('temp').textContent = data.acceleration.x;
-            document.getElementById('temp').textContent = data.acceleration.y;
-            document.getElementById('temp').textContent = data.acceleration.z;
+            document.getElementById('ax').textContent = data.acceleration.x;
+            document.getElementById('ay').textContent = data.acceleration.y;
+            document.getElementById('az').textContent = data.acceleration.z;
             document.getElementById('temp').textContent = data.temperature;
         }})
         .catch(err => console.error("Telemetry fetch error:", err));
