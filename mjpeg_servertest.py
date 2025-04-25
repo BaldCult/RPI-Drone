@@ -18,6 +18,7 @@ import gamepad_test  # Imports joystick values
 PAGE = """\
 <html>
 <head>
+<link rel="stylesheet" href="style.css">
 <title>RPI-Drone</title>
 </head>
 <body>
