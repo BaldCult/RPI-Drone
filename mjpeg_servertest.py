@@ -109,9 +109,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.send_header('Content-Length', len(css))
                     self.end_headers()
                     self.wfile.write(css)
-                except FileNotFoundError:
-                    self.send_error(404)
-                    self.end_headers()
+            except FileNotFoundError:
+                self.send_error(404)
+                self.end_headers()
         elif self.path == '/joystick.json':
             # Return the latest joystick values as JSON
             self.send_response(200)
