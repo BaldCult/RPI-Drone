@@ -20,6 +20,7 @@ PAGE = """\
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="https://static-00.iconduck.com/assets.00/raspberry-pi-icon-2048x2048-p0y4r07x.png">
 <title>RPI-Drone</title>
 </head>
 <body>
