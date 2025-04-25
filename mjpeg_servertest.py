@@ -19,12 +19,11 @@ PAGE = """\
 <html>
 <head>
 <title>RPI-Drone</title>
-<style>
-body {{ font-family: Arial, sans-serif; }}
-#joystick-box {{ margin-top: 20px; }}
-</style>
 </head>
 <body>
+<div class="topnav">
+  <a href="https://github.com/BaldCult/RPI-Drone">Link</a>
+</div>
 <h1>RPI-Drone</h1>
 <img src="stream.mjpg" width="640" height="480" /><br><br>
 
