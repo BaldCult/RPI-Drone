@@ -22,7 +22,7 @@ PAGE = """\
 </head>
 <body>
 <div class="topnav">
-  <a href="https://github.com/BaldCult/RPI-Drone">Link</a>
+  <a href="https://github.com/BaldCult/RPI-Drone">GitHub</a>
 </div>
 <h1>RPI-Drone</h1>
 <img src="stream.mjpg" width="640" height="480" /><br><br>
