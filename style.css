@@ -1,3 +1,9 @@
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
 /* Style the topnav links */
 .topnav a {
   float: left;
