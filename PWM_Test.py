@@ -12,5 +12,5 @@ pinSetup()
 
 esc_pwm = GPIO.PWM(signal_pin, 50)
 esc_pwm.start(7.5)
-sleep(2)
-esc_pwm.stop()
+#sleep(2)
+#esc_pwm.stop()
