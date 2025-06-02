@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-signal_pin = 12
+signal_pin = 18
 
 def pinSetup():
   GPIO.setwarnings(False)
