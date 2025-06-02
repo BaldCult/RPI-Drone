@@ -7,7 +7,6 @@ def pinSetup():
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BOARD)
   GPIO.setup(signal_pin, GPIO.OUT)
-  GPIO.setwarnings(False)
 
 pinSetup()
 
