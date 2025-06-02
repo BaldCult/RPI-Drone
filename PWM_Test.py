@@ -3,7 +3,7 @@ from time import sleep
 
 signal_pin = 12
 
-def pinSetup()
+def pinSetup():
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BOARD)
   GPIO.setup(signal_pin, GPIO.OUT)
