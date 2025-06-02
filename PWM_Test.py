@@ -12,5 +12,8 @@ pinSetup()
 
 esc_pwm = GPIO.PWM(signal_pin, 50)
 esc_pwm.start(7.5)
+
+while True:
+  print("still loopin")
 #sleep(2)
 #esc_pwm.stop()
