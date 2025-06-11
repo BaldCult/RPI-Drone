@@ -1,4 +1,4 @@
-# motor_control.py
+# controller_input.py
 
 import asyncio
 import pigpio
