@@ -29,12 +29,16 @@ async def joysticks(gamepad):
         GpioPins = [4, 17, 27, 22]
         if event.type == ecodes.EV_ABS:
             if event.code == ecodes.ABS_X:
+                left_x_raw = event.value
                 left_X = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_Y:
+                left_X_raw = event.value
                 left_Y = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_Z:
+                right_X_raw = event.value
                 right_X = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_RZ:
+                right_Y_raw = event.value
                 right_Y = round(normalize(event.value), 2)
 
         #print(f"Left Joystick X: {left_X}") #event.code == ecodes.ABS_X
