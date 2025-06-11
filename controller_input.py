@@ -4,6 +4,35 @@ import asyncio
 import pigpio
 import time
 from gamepad_test import latest_values, read_joystick_values
+import threading
+
+def motor_control_loop():
+    try:
+        while True:
+            # Read latest joystick values
+            lx = gamepad_test.latest_values.get("left_X", 0)
+            ly = gamepad_test.latest_values.get("left_Y", 0)
+            rx = gamepad_test.latest_values.get("right_X", 0)
+            ry = gamepad_test.latest_values.get("right_Y", 0)
+
+            pulsewidths = [
+                joystick_to_pulsewidth(lx),
+                joystick_to_pulsewidth(ly),
+                joystick_to_pulsewidth(rx),
+                joystick_to_pulsewidth(ry)
+            ]
+
+            for pin, pw in zip(ESC_PINS, pulsewidths):
+                pi.set_servo_pulsewidth(pin, pw)
+
+            time.sleep(0.05)  # 20 Hz update rate
+    except KeyboardInterrupt:
+        pass
+    finally:
+        for pin in ESC_PINS:
+            pi.set_servo_pulsewidth(pin, 0)
+        pi.stop()
+
 
 # GPIO pins connected to ESC signal wires
 ESC_PINS = [4, 17, 27, 22]
