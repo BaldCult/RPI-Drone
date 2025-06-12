@@ -50,3 +50,6 @@ async def read_joystick_values():
                 latest_values["right_X"] = round(normalize(event.value), 2)
             elif event.code == ecodes.ABS_RZ:
                 latest_values["right_Y"] = round(normalize(event.value), 2)
+
+while true:
+    read_joystick_values()
