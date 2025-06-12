@@ -42,6 +42,7 @@ while True:
                     latest_values["left_X"] = round(normalize(event.value), 2)
                 elif event.code == ecodes.ABS_Y:
                     latest_values["left_Y"] = round(normalize(event.value), 2)
+                    print("Got a Y value");
                     if event.value in range (-32767, 32767):
                         pi.set_servo_pulsewidth(ESC_GPIO1, (((1000*event.value)/65535)+1000))
                         pi.set_servo_pulsewidth(ESC_GPIO2, (((1000*event.value)/65535)+1000))
