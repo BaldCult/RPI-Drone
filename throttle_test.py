@@ -43,10 +43,10 @@ while True:
                 elif event.code == ecodes.ABS_Y:
                     latest_values["left_Y"] = round(normalize(event.value), 2)
                     if event.value in range (-32767, 32767):
-                        pi.set_servo_pulsewidth(ESC_GPIO1, event.value)
-                        pi.set_servo_pulsewidth(ESC_GPIO2, event.value)
-                        pi.set_servo_pulsewidth(ESC_GPIO3, event.value)
-                        pi.set_servo_pulsewidth(ESC_GPIO4, event.value)
+                        pi.set_servo_pulsewidth(ESC_GPIO1, (((1000*event.value)/65535)+1000))
+                        pi.set_servo_pulsewidth(ESC_GPIO2, (((1000*event.value)/65535)+1000))
+                        pi.set_servo_pulsewidth(ESC_GPIO3, (((1000*event.value)/65535)+1000))
+                        pi.set_servo_pulsewidth(ESC_GPIO4, (((1000*event.value)/65535)+1000))
                 elif event.code == ecodes.ABS_Z:
                     latest_values["right_X"] = round(normalize(event.value), 2)
                 elif event.code == ecodes.ABS_RZ:
