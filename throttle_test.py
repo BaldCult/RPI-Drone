@@ -33,7 +33,7 @@ def find_gamepad_device():
 def normalize(value):
     return (value - 32768) / 32768.0  # Normalize to range -1 to 1
 
-while true:
+while True:
     async def read_joystick_values():
         gamepad = find_gamepad_device()
         async for event in gamepad.async_read_loop():
