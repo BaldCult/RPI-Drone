@@ -6,6 +6,10 @@ ESC_GPIO2 = 27
 ESC_GPIO3 = 22
 ESC_GPIO4 = 4
 
+pi = pigpio.pi()  # Connect to local pigpio daemon
+if not pi.connected:
+    exit()
+
 def find_gamepad_device():
     for device_path in evdev.list_devices():
         device = evdev.InputDevice(device_path)
