@@ -63,4 +63,5 @@ async def main():
     gamepad = find_gamepad_device()
     
     await analog_inputs(gamepad)
+    
 asyncio.run(main())
