@@ -45,16 +45,16 @@ async def joysticks(gamepad):
                 left_X = round(normalize(event.value), 2)
 
             elif event.code == ecodes.ABS_Y:
-                left_y_raw = event.value
+                left_y_raw = -1*event.value
                 left_Y = round(normalize(event.value), 2)
 
                 pwm = map_to_pwm(event.value)
 
                 # Send same PWM to all ESCs for now
-                pi.set_servo_pulsewidth(ESC_GPIO1, -1*pwm)
-                pi.set_servo_pulsewidth(ESC_GPIO2, -1*pwm)
-                pi.set_servo_pulsewidth(ESC_GPIO3, -1*pwm)
-                pi.set_servo_pulsewidth(ESC_GPIO4, -1*pwm)
+                pi.set_servo_pulsewidth(ESC_GPIO1, pwm)
+                pi.set_servo_pulsewidth(ESC_GPIO2, pwm)
+                pi.set_servo_pulsewidth(ESC_GPIO3, pwm)
+                pi.set_servo_pulsewidth(ESC_GPIO4, pwm)
 
             elif event.code == ecodes.ABS_Z:
                 right_X_raw = event.value
