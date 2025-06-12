@@ -18,21 +18,6 @@ import gamepad_test  # Imports joystick values
 
 import pigpio
 
-ESC_PINS = [4, 17, 27, 22]
-pi = pigpio.pi()
-if not pi.connected:
-    print("Failed to connect to pigpio daemon. Run 'sudo pigpiod'")
-    exit(1)
-
-for pin in ESC_PINS:
-    pi.set_servo_pulsewidth(pin, 1000)  # initialize min throttle
-time.sleep(2)  # ESC arm delay
-
-def joystick_to_pulsewidth(norm_val):
-    # Map normalized joystick (-1 to 1) to pulse width (1000 to 2000)
-    norm_val = max(-1, min(1, norm_val))
-    return int(1500 + norm_val * 500)
-
 PAGE = """\
 <html>
 <head>
@@ -184,9 +169,6 @@ joystick_thread = Thread(target=start_joystick_reader, daemon=True)
 telemetry_thread = Thread(target=start_telemetry_reader, daemon=True)
 joystick_thread.start()
 telemetry_thread.start()
-
-motor_thread = Thread(target=motor_control_loop, daemon=True)
-motor_thread.start()
 
 # Start camera stream
 picam2 = Picamera2()
