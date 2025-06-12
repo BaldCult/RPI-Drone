@@ -40,10 +40,11 @@ async def joysticks(gamepad):
             elif event.code == ecodes.ABS_Y:
                 left_X_raw = event.value
                 left_Y = round(normalize(event.value), 2)
-                pi.set_servo_pulsewidth(ESC_GPIO1, -1*(((1000*event.value)/65535)+1000))
-                pi.set_servo_pulsewidth(ESC_GPIO2, -1*(((1000*event.value)/65535)+1000))
-                pi.set_servo_pulsewidth(ESC_GPIO3, -1*(((1000*event.value)/65535)+1000))
-                pi.set_servo_pulsewidth(ESC_GPIO4, -1*(((1000*event.value)/65535)+1000))
+                if (((1000*event.value)/65535)+1000) in range(0,65535):
+                    pi.set_servo_pulsewidth(ESC_GPIO1, -1*(((1000*event.value)/65535)+1000))
+                    pi.set_servo_pulsewidth(ESC_GPIO2, -1*(((1000*event.value)/65535)+1000))
+                    pi.set_servo_pulsewidth(ESC_GPIO3, -1*(((1000*event.value)/65535)+1000))
+                    pi.set_servo_pulsewidth(ESC_GPIO4, -1*(((1000*event.value)/65535)+1000))
             elif event.code == ecodes.ABS_Z:
                 right_X_raw = event.value
                 right_X = round(normalize(event.value), 2)
