@@ -1,0 +1,21 @@
+import time
+import board
+import adafruit_mpu6050
+import asyncio
+
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+mpu = adafruit_mpu6050.MPU6050(i2c)
+
+latest_values = {
+    "acceleration": {"x": 0, "y": 0, "z": 0},
+    "gyro": {"x": 0, "y": 0, "z": 0},
+    "temperature": 0
+}
+
+async def read_gyro_data():
+   while True:
+        latest_values["acceleration"] = {"x": round(mpu.acceleration[0], 2), "y": round(mpu.acceleration[1], 2), "z": round(((float)(mpu.acceleration[2]))+2.0, 2)}
+        latest_values["gyro"] = {"x": round(mpu.gyro[0], 2), "y": round(mpu.gyro[1], 2), "z": round(mpu.gyro[2], 2)}
+        latest_values["temperature"] = round(mpu.temperature, 2)
+        time.sleep(1)
